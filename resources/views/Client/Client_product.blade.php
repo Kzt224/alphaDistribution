@@ -58,8 +58,10 @@
                                      <td>{{$product->price}}</td>
                                      <td>
                                         <form action="/client/order" method="POST">
+                                  
                                           @csrf 
                                           <input type="hidden" value="{{$product->id}}" name="product_id">
+                                          <input type="hidden" value="{{Auth::user()->id}}" name="user_id">
                                           <input type="hidden" value="{{$product->price}}" name="price">
                                           <input type="hidden" value="{{$outlet}}" name="outlet_id">
                                          <input type="number" style="width: 50px;

@@ -40,6 +40,7 @@ class ClientController extends Controller
 
         $validated = $request->validate([
             'product_id' => 'required',
+            'user_id' => 'required',
             'price' => 'required',
             'outlet_id' => 'required',
             'qty' => 'required||numeric|gt:0',
@@ -52,6 +53,7 @@ class ClientController extends Controller
          $order = new Order;
          $order->outlet_id = $request->outlet_id;
          $order->product_id = $request->product_id;
+         $order->user_id = $request->user_id;
          $order->price = $request->price;
          $order->qty = $qty;
          $order->total = $total;
@@ -85,6 +87,7 @@ class ClientController extends Controller
         foreach($orders as $key => $order){
             $outlet_id = $order->outlet_id;
             $product_id = $order->product_id;
+            $user_id  = $order->user_id;
             $price = $order->price;
             $qty = $order->qty;
             $total = $order->total;
@@ -96,6 +99,7 @@ class ClientController extends Controller
              $comfirmOrder->outlet_id = $outlet_id;
              $comfirmOrder->order_id = $order_id;
              $comfirmOrder->product_id = $product_id;
+             $comfirmOrder->user_id = $user_id;
              $comfirmOrder->price = $price;
              $comfirmOrder->qty = $qty;
              $comfirmOrder->total = $total;

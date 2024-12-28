@@ -233,4 +233,33 @@
 
 
 
-              
+                          <div class="row">
+               <div class="col-lg-8 mx-2">
+                <div class=" ">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-6">
+                  <h5>
+                    <i class="fas fa-globe"></i> Alpha Distribution, Inc. <br>
+                      Address: Min Khaung Kyaung Street.Gyobingauk.
+                  </h5>
+                </div>
+                <!-- /.col -->
+              </div><br>
+            
+
+              <!-- Table row -->
+              <div class="row">
+                <div class="col-12">
+                  
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+             
+            </div>
+
+
+
+
+           

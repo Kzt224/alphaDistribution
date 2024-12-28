@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('comfirm_Orders', function (Blueprint $table) {
             $table->id();
             $table->Integer('outlet_id');
+            $table->Integer('user_id');
             $table->string('order_id');
             $table->Integer('product_id');
             $table->string('qty');
