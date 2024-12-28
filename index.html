@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <table id="dishes" class="table table-bordered table-striped">
+    <thead>
+     <tr>
+      <th>Dish Name</th>
+      <th>Category</th>
+      <th>Price</th>
+      <th>Actions</th>  
+     </tr>
+    </thead>
+    <tbody>
+     @foreach($dishes as $dish)
+        <tr>
+          <td>{{$dish->name}}</td>
+          <td>{{$dish->category->name}}</td>
+          <td>{{$dish->price}}</td>
+          <td>
+            <div class="form-row">
+            <a href="/dish/{{$dish->id}}/edit" class="btn btn-warning" style="height: 40px;margin-right: 10px">Edit</a>
+              <form action="/dish/{{$dish->id}}" method="POST">
+              @csrf
+              @method('DELETE')
+              <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+            </div>
+          </td>
+        </tr>
+     @endforeach
+    </tbody>
+  </table>
+</body>
+</html>
+
+<script src="plugins/jquery/jquery.min.js"></script>
+<script>
+  $(function () {
+    $('#dishes').DataTable({
+      
+      "pageLength": 3,
+      "responsive": true,
+    });
+  });
+</script>
+
+<thead>
+  <tr>
+    <th>Rendering engine</th>
+    <th>Browser</th>
+    <th>Platform(s)</th>
+    <th>Engine version</th>
+    <th>CSS grade</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Trident</td>
+    <td>Internet Explorer 5.5</td>
+    <td>Win 95+</td>
+    <td>5.5</td>
+    <td>A</td>
+  </tr>
+  <tr>
+    <td>Gecko</td>
+    <td>Mozilla 1.2</td>
+    <td>Win 95+ / OSX.1+</td>
+    <td>1.2</td>
+    <td>A</td>
+  </tr>
+  </tbody>
