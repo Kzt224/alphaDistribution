@@ -23,7 +23,7 @@
            <div><br>
                <div class="row">
                  <div class="col-lg-8 mx-2">
-                    <div class="card">
+                    <div class="card" id="dailyreport">
                     <!-- /.card-header -->
                       <div class="card-body">
                         <div class="row">
@@ -135,9 +135,13 @@
               <!-- /.--->
                       </div>
                     <!-- /.card-body -->
-                    <div class="option mx-2">
+                    <div class="option mx-2" id="hideGp">
                       <a href="/order" type="btn" class="btn btn-primary">Back</a>
-                      <a href="/print" style="border: none;height:38px;width: 50px;" type="btn" class="btn btn-warning"><i class="fa fa-print" font-size="50px;"></i></a>
+                      @if(isset($orders))
+                        <button type="submit" class="btn btn-warning" style="height: 38px;" id="repBtn" >
+                          <i class="fa fa-print" font-size="50px;"></i>
+                        </button>    
+                        @endif
                     </div>
                    </div>
                  </div>

@@ -52,7 +52,7 @@
                    <i class="fa fa-user"></i>
                     <span class="d-none d-lg-inline">About As</span>
                  </a>
-                 <a href="" class="list-group-item list-group-item-action ">
+                 <a href="/client/report" class="list-group-item list-group-item-action ">
                    <i class="fa fa-flag"></i>
                     <span class="d-none d-lg-inline">Report</span>
                  </a>
@@ -114,7 +114,7 @@
           </div><br><br><br>
           <div class="footer-section fixed-bottom bg-light">
           <footer class="text-center py-4 text-muted ">
-                &copy;By Time Technology 2024
+                &copy;Copy Right : By Time Technology 2024
                </footer>
           </div>
 

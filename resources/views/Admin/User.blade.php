@@ -56,9 +56,13 @@
               @endforeach
             </tbody>
       </table>
+      
     </div>
     <!-- /.card-body -->
   </div>
+        <div class="btn-group">
+          <a href="/data" class="btn btn-secondary">Back</a>
+        </div>
   <!-- /.card -->
            </div>
         <!-- /.row -->

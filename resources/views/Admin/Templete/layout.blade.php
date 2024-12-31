@@ -81,7 +81,7 @@
      <!-- Right navbar links -->
        <ul class="navbar-nav ml-auto ">
       <!-- Navbar Search -->
-        <li class="nav-item me-2">
+        <!-- <li class="nav-item me-2">
          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
           <i class="fas fa-search"></i>
          </a>
@@ -100,7 +100,7 @@
             </div>
            </form>
          </div>
-         </li>
+         </li> -->
          <li class="nav-item">
           <form action="/logout" method="POST" style="margin-top: 5px;margin-right: 5px">
             @csrf
@@ -134,49 +134,56 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="/" class="nav-link {{Request::segment(1) == '' ? 'active' : '' }}" >
+            <!-- <a href="/" class="nav-link {{Request::segment(1) == '' ? 'active' : '' }}" >
               <i class="nav-icon far fa-circle nav-icon "></i>
               <p>
                 Products
               </p>
-            </a>
+            </a> -->
+
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                  <a href="/data" class="nav-link {{Request::segment(1) == 'data' ? 'active' : '' }}">
+                  <i class="fa-solid fa-gear nav-icon"></i>
+                   <p>Data && Manangement</p>
+                  </a>
+                </li>
+              <li class="nav-item">
                 <a href="/category" class="nav-link {{Request::segment(1) == 'category' ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Catgeory</p>
+                 <i class="fa-solid fa-layer-group nav-icon"></i>
+                 <p>Catgeory</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="/outlet" class="nav-link {{Request::segment(1) == 'outlet' ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Outlet Name</p>
+                 <i class="fa-solid fa-shop nav-icon"></i>
+                 <p>Outlet Name</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="/order" class="nav-link {{Request::segment(1) == 'order' ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Order</p>
+                 <i class="fa-solid fa-cart-shopping nav-icon"></i>
+                 <p>Order</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="/report" class="nav-link {{Request::segment(1) == 'report' ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Daily Sale Report</p>
+                 <i class="fa-solid fa-file nav-icon"></i>
+                 <p>Daily Sale Report</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="/way" class="nav-link {{Request::segment(1) == 'way' ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa-solid fa-road nav-icon"></i>
                   <p>Way Plan</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="/user" class="nav-link {{Request::segment(1) == 'user' ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>User List</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
         </ul>

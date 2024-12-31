@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatController;
 use App\Http\Controllers\WayController;
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\OutletController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClientAuthController;
+use App\Http\Controllers\ClientReportController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 
@@ -40,6 +42,8 @@ Route::middleware(['role:1'])->group(function () {
     Route::post('/report/detail',[OrderController::class,'report_detail']);
     //route for user
     Route::resource("/user",UserController::class);
+    Route::get("/data",[DataController::class,'index']);
+    Route::get('/data/user',[DataController::class,'user']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -59,6 +63,7 @@ Route::middleware(['client'])->group(function () {
     Route::get("/client/orderlist",[ClientController::class,'order_list']);
     Route::get("/client/upload",[ClientController::class,'upload']);
     Route::get("/client/test",[ClientController::class,'updateData']);
+    Route::get('/client/report',[ClientReportController::class,'index']);
 });
 
 

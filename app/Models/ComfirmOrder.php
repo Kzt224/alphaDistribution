@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Outlet;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
@@ -18,4 +19,9 @@ class ComfirmOrder extends Model
     {
         return $this->belongsTo(Product::class);
     }
+    public function user():BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
