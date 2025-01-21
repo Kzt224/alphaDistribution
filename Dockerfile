@@ -25,7 +25,7 @@ COPY . .
 RUN composer install --no-interaction --prefer-dist
 
 # Expose port 9000 and start PHP-FPM
-EXPOSE 8000
+EXPOSE 8080
 CMD ["php-fpm"]
 
 CMD php artisan serve --host 0.0.0.0 --port 8080
