@@ -1,30 +1,29 @@
-# Use the official PHP image from Docker Hub
-FROM php:8.0-apache
+# Use PHP 8.2.12 image
+FROM php:8.2.12-fpm
 
-# Install dependencies and PHP extensions
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev && \
-    docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install gd pdo pdo_mysql
+# Set working directory
+WORKDIR /var/www
 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
-
-# Copy the application files into the container
-COPY . /var/www/html/
-
-# Set proper permissions
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 755 /var/www/html/storage
-
-# Set the working directory
-WORKDIR /var/www/html
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    zip \
+    git \
+    unzip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pdo pdo_mysql
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install Laravel dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Copy the Laravel application into the container
+COPY . .
 
-# Expose port 80
-EXPOSE 80
+# Install dependencies
+RUN composer install --no-interaction --prefer-dist
+
+# Expose port 9000 and start PHP-FPM
+EXPOSE 9000
+CMD ["php-fpm"]
