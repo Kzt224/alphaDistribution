@@ -25,6 +25,9 @@ COPY . .
 RUN composer install --no-interaction --prefer-dist
 RUN composer require doctrine/dbal
 
+# Run migrations
+RUN php artisan migrate --force
+
 # Expose the port
 EXPOSE 8080
 
