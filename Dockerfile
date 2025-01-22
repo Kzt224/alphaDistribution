@@ -1,31 +1,35 @@
-# Use the official PHP image with Composer pre-installed
-FROM php:8.2-cli
+# Use PHP 8.2.12 image
+FROM php:8.2.12-fpm
+
+# Set working directory
+WORKDIR /var/www
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    zip unzip git curl libpq-dev libonig-dev \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    zip \
+    git \
+    unzip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pdo pdo_mysql
 
-# Set the working directory
-WORKDIR /var/www/html
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy application files
+# Copy the Laravel application into the container
 COPY . .
 
-# Install Composer dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Install dependencies
+RUN composer install --no-interaction --prefer-dist
 
-# Install the doctrine/dbal package
+# Add the doctrine/dbal package
 RUN composer require doctrine/dbal
 
-# Copy the entrypoint script
-COPY entrypoint.sh /usr/local/bin/
 
-# Make the entrypoint script executable
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-# Expose the application port
+# Expose the port
 EXPOSE 8080
 
-# Use the entrypoint script
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# Run the Laravel development server on all interfaces (0.0.0.0) on port 8080
+CMD php artisan serve --host 0.0.0.0 --port 8080
