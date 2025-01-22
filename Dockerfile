@@ -15,21 +15,23 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_mysql
 
-# Install Composer
+# Install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy the Laravel application into the container
+# Copy only necessary files
+COPY composer.json composer.lock ./
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
 COPY . .
 
-# Install dependencies
-RUN composer install --no-interaction --prefer-dist
+# Set permissions
+RUN chown -R www-data:www-data /var/www
 
-# Add the doctrine/dbal package
+# Add the doctrine/dbal package (optional, only if you need it)
 RUN composer require doctrine/dbal
 
-
-# Expose the port
+# Expose the port (8080)
 EXPOSE 8080
 
-# Run the Laravel development server on all interfaces (0.0.0.0) on port 8080
-CMD php artisan serve --host 0.0.0.0 --port 8080
+# Use php-fpm instead of `php artisan serve` for production
+CMD ["php-fpm"]
