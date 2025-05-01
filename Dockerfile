@@ -26,6 +26,9 @@ COPY . .
 RUN composer install --no-interaction --prefer-dist
 RUN composer require doctrine/dbal
 
+# Create sessions table
+RUN php artisan session:table
+
 # Run migrations (optional: remove if you handle this separately)
 RUN php artisan migrate --force
 
