@@ -22,18 +22,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy the Laravel application into the container
 COPY . .
 
-# Ensure .env is set correctly (you can also mount or build it manually)
-RUN echo "SESSION_DRIVER=database" >> .env
-
 # Install PHP dependencies
 RUN composer install --no-interaction --prefer-dist
 RUN composer require doctrine/dbal
 
-# Create the sessions table if migration file exists
-# (skip if already created)
-RUN if [ ! -f database/migrations/*_create_sessions_table.php ]; then php artisan session:table; fi
+# Generate session migration only if not exists
+RUN if ! find database/migrations -name '*_create_sessions_table.php' | grep -q .; then php artisan session:table; fi
 
-# Run migrations (includes sessions table)
+# Run all migrations
 RUN php artisan migrate --force
 
 # Expose the port
