@@ -4,8 +4,11 @@ services:
     env: php
     plan: free
     buildCommand: |
+      # Install PostgreSQL dependencies and PHP extension
       apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo_pgsql
+      # Install dependencies for Laravel
       composer install --no-dev --optimize-autoloader
+      # Clear config cache, generate app key, and run migrations
       php artisan config:clear
       php artisan key:generate
       php artisan migrate --force
