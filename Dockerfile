@@ -27,7 +27,7 @@ RUN composer install --no-interaction --prefer-dist
 RUN composer require doctrine/dbal
 
 # Generate session migration only if not exists
-RUN if ! find database/migrations -name '*_create_sessions_table.php' | grep -q .; then php artisan session:table; fi
+RUN sh -c '[ -z "$(ls database/migrations/*_create_sessions_table.php 2>/dev/null)" ] && php artisan session:table || echo "Session table migration already exists"'
 
 # Run all migrations
 RUN php artisan migrate --force
