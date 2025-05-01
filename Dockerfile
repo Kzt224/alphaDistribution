@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y \
     zip \
     git \
     unzip \
-    libpq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_pgsql
 
@@ -24,12 +23,11 @@ COPY . .
 
 # Install dependencies
 RUN composer install --no-interaction --prefer-dist
+RUN composer require doctrine/dbal
 
-# Create the session table
-RUN php artisan session:table
-
-# Run migrations
+# Run migrations and session table creation if necessary
 RUN php artisan migrate --force
+RUN php artisan session:table
 
 # Expose the port
 EXPOSE 8080
