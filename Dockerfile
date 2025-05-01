@@ -26,14 +26,15 @@ COPY . .
 RUN composer install --no-interaction --prefer-dist
 RUN composer require doctrine/dbal
 
-# Generate session migration only if not exists
+# Generate session migration file (only if not exists)
 RUN sh -c '[ -z "$(ls database/migrations/*_create_sessions_table.php 2>/dev/null)" ] && php artisan session:table || echo "Session table migration already exists"'
 
-# Run all migrations
-RUN php artisan migrate --force
+# Copy entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Expose the port
 EXPOSE 8080
 
-# Start Laravel dev server
-CMD php artisan serve --host 0.0.0.0 --port 8080
+# Start with entrypoint
+CMD ["sh", "/usr/local/bin/docker-entrypoint.sh"]
