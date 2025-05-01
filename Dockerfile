@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libpq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql pdo_pgsql
+    && docker-php-ext-install gd pdo pdo_pgsql
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -22,18 +22,17 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy the Laravel application into the container
 COPY . .
 
-# Install PHP dependencies
+# Install dependencies
 RUN composer install --no-interaction --prefer-dist
-RUN composer require doctrine/dbal
 
-# Create sessions table
+# Create the session table
 RUN php artisan session:table
 
-# Run migrations (optional: remove if you handle this separately)
+# Run migrations
 RUN php artisan migrate --force
 
 # Expose the port
 EXPOSE 8080
 
-# Start Laravel dev server
+# Run the Laravel development server on all interfaces (0.0.0.0) on port 8080
 CMD php artisan serve --host 0.0.0.0 --port 8080
