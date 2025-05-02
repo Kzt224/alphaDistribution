@@ -66,6 +66,10 @@ Route::middleware(['client'])->group(function () {
     Route::get('/client/report',[ClientReportController::class,'index']);
 });
 
+Route::get('/migrate', function () {
+    Artisan::call('migrate --force');
+    return "Migrations are complete.";
+});
 
 
 require __DIR__.'/auth.php';
