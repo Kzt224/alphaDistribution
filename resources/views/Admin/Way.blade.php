@@ -22,9 +22,18 @@
            <div><br>
            <div class="card">
     <!-- /.card-header -->
-    <div class="card-body">
-       <p>Today is <span style="font-weight:bold;color: green">{{$way->day}} day and {{$way->city->name}} way.</span></p>
-    </div>
+             <div class="card-body">
+                @if(isset($way) && isset($way->city) && !empty($way->city->name))
+                    <p>Today is <span style="font-weight:bold; color: green;">
+                        {{ $way->day }} day and {{ $way->city->name }} way.
+                    </span></p>
+                @else
+                    <p style="font-weight:bold; color: red;">
+                        Please add a way first
+                    </p>
+                @endif
+            </div>
+
     <!-- /.card-body -->
   </div>
   <!-- /.card -->
