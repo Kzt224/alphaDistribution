@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('outlets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('city_id);
             $table->string('address');
             $table->String('Phone_Number');
             $table->timestamps();
