@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ways', function (Blueprint $table) {
             $table->id();
             $table->string('day');
-            $table->string('way_name');
+            $table->string('city_id');
             $table->timestamps();
         });
     }
