@@ -8,19 +8,20 @@ use Illuminate\Http\Request;
 
 class WayController extends Controller
 {
-    public function Index()
-    {
+public function Index()
+{
+    $ways = Way::all();
+    $currentDay = date('l'); // returns "Monday", "Tuesday", etc.
 
-        $ways = Way::all();
-        $day = date('l');
-        $currentDay = substr($day,0,3);
-        foreach ($ways as $key => $way) {
-            $date = $way->day;
-            if($date == $currentDay){
-                return view('Admin.Way',compact('way'));
-            }
-        } 
+    foreach ($ways as $way) {
+        if (strtolower($way->day) == strtolower($currentDay)) {
+            return view('Admin.Way', compact('way'));
+        }
     }
+
+    return view('Admin.Way', ['way' => null]); // Handle when no match found
+}
+
 
     public function detail()
     {
