@@ -11,22 +11,21 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    public function home()
-    {
-        $ways  = Way::all();
-        $day = date('l');
-        $currentDay = substr($day,0,3);
-        foreach ($ways as $key => $way) {
-            $date = $way->day;
+    
+public function home()
+{
+    $day = strtolower(date('l')); // e.g., 'monday'
 
-            if($date == $currentDay){
-                $city_id = $way->city_id;
-            }
-        }
+    $way = Way::whereRaw('LOWER(day) = ?', [$day])->first();
 
-        $outlets = Outlet::where('city_id',$city_id)->get();
-        return view("Client.Index",compact('outlets'));
+    if (!$way || !$way->city_id) {
+        return view("Client.Index", ['outlets' => collect()]);
     }
+
+    $outlets = Outlet::where('city_id', $way->city_id)->get();
+    return view("Client.Index", compact('outlets'));
+}
+
 
     public function product(Request $request)
     {
