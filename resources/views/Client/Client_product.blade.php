@@ -45,7 +45,6 @@
                                     <tr>
                                       <th class="h6">id</th>
                                       <th class="h6"> Name</th>
-                                      <th class="h6">Image</th>
                                       <th class="h6">Price</th>
                                       <th class="h6">Qty</th>
                                     </tr>
@@ -54,7 +53,6 @@
                                    <tr>
                                      <td>{{$key+1}}</td>
                                      <td>{{$product->name}}</td>
-                                     <td><img src="{{url('/images/'.$product->image_name)}}" alt="{{$product->image_name}}" style="width:50px;height:50px;border-radius: 50%"></td>
                                      <td>{{$product->price}}</td>
                                      <td>
                                         <form action="/client/order" method="POST">
