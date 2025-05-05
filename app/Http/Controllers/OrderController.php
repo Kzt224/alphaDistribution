@@ -30,7 +30,9 @@ class OrderController extends Controller
     public function detail(Request $requset,Outlet $outlet)
     {
         $id = $outlet->id;
-        $orders = ComfirmOrder::where('outlet_id',"$id")->get();
+        $orders = ComfirmOrder::where('outlet_id', $id)
+                    ->whereDate('created_at', Carbon::today())
+                    ->get();
         $name = $outlet->name;
         $address = $outlet->city->name;
         $phno =   $outlet->Phone_Number;
